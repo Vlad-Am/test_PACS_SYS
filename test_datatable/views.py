@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 
+from .forms import StudiesForm
 from .models import Modalities, Studies
 import random
 from datetime import timedelta
@@ -60,15 +61,15 @@ def init_db(request):
 
 class StudiesCreateView(CreateView):
     model = Studies
-    # form_class = StudiesForm
-    success_url = reverse_lazy('test_datatable:table_create')
+    form_class = StudiesForm
 
 
 class StudiesListView(ListView):
     model = Studies
-
     # form_class = StudiesForm
 
     @transaction.atomic
     def get_queryset(self):
         return Studies.objects.all()
+
+
