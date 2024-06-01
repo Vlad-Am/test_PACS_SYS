@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+    <script type="text/javascript"
+            src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>Тестовое задание</title>
+</head>
+<body>
+<table id="myTable" class="table table-striped" >
+        <thead>
+          <tr>
+            <th>patient_fio</th>
+            <th>patient_birthdate</th>
+            <th>study_uid</th>
+            <th>study_date</th>
+            <th>study_modality</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+          <tr>
+            <th>object.patient_fio</th>
+            <th>object.patient_birthdate</th>
+            <th>object.study_uid</th>
+            <th>object.study_date</th>
+            <th>object.study_modality</th>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
+</html>
