@@ -8,6 +8,6 @@ app_name = TestDatatableConfig.name
 
 urlpatterns = [
     path('init_db/', views.init_db, name='init_db'),
-    path("table_list/", StudiesListView.as_view(), name="table_list"),
+    path("", StudiesListView.as_view(), name="table_list"),
     path("table_create/", StudiesCreateView.as_view(), name="studies_create"),
 ]

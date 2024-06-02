@@ -66,10 +66,19 @@ class StudiesCreateView(CreateView):
 
 class StudiesListView(ListView):
     model = Studies
-    # form_class = StudiesForm
 
     @transaction.atomic
     def get_queryset(self):
         return Studies.objects.all()
+
+    # def get_context_data(self, *args, **kwargs):
+    #     """Получает данные о Modlities для отображения в шаблоне"""
+    #     context = super().get_context_data(*args, **kwargs)
+    #     studies = self.get_queryset()
+    #     for studie in studies:
+    #         studies.study_modality =
+    #     context["object_list"] = studies
+    #
+    #     return context
 
 

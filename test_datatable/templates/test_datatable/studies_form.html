@@ -17,19 +17,20 @@
 
     <h1 class="display-4">
 
-        Создание
+        Создание записи о пациенте
 
     </h1>
 </div>
-<form class="row g-3" method="post" enctype="multipart/form-data">
-    <div class='col-6'>
+<div class="container">
+<form class="row g-5" method="post" enctype="multipart/form-data">
+    <div class='col-5 mx-auto'>
         <div class="card mb-4 box-shadow">
             <div class="card-header">
                 <h4 class="card-title">
                     Добавьте пациента
                 </h4>
             </div>
-            <div class="card-body">
+            <div class="card-body ">
 
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -40,6 +41,7 @@
         </div>
     </div>
 </form>
+</div>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
