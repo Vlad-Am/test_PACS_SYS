@@ -6,78 +6,90 @@
     <meta charset="UTF-8">
 
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <link rel="stylesheet"
-          href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+          href="http://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link href="{% static 'css/hystmodal.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mycss.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
     <title>Тестовое задание</title>
 </head>
 <body>
 <div class="container">
-    <div class="row header" style="text-align:center;color:green">
-        <h3>Bootstrap Table With sorting,searching and paging using dataTable.js</h3>
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <button id='add' type="button" class="btn btn-primary"> Добавить пациента
+        </button>
     </div>
 
-    <div class="hystmodal" id="myModal" aria-hidden="true">
-        <div class="hystmodal__wrap">
-            <div class="hystmodal__window" role="dialog" aria-modal="true">
-                <button data-hystclose class="hystmodal__close">Закрыть</button>
-                <div class="d-grid gap-2 col-4 mx-auto">
-                    <a href="{% url 'test_datatable:studies_create' %}">
-                        <button type="button" class="btn btn-primary btn-lg btn-block"> Добавить запись в базу</button>
-                    </a>
-                </div>
+
+    <div class="vmodal" style="display:none;">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span class="modal-title">Заполните форму</span>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" method="post" name='q' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="col-6">
+                        <button class="btn btn-primary" type="submit">Добавить</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+
+
     <div class="d-grid gap-2 col-10 mx-auto">
+
         <table id="myTable" class="table table-striped">
             <thead>
+
             <tr>
-                <th>patient_fio</th>
-                <th>patient_birthdate</th>
-                <th>study_uid</th>
-                <th>study_date</th>
-                <th>study_modality</th>
+                <th>ФИО пациента</th>
+                <th>Дата рождения пациента</th>
+                <th>Uid Исследования</th>
+                <th>Дата Исследования</th>
+
+                <th>Модальность исследования
+                <span class='support' tabindex="1" data-title="
+                   ['CT', 'Computed Tomography'],&#013;
+                   ['MR', 'Magnetic Resonance'],&#013;
+                   ['PT', 'Positron emission tomography'],&#013;
+                   ['US', 'Ultrasound'],&#013;
+                   ['XA', 'X-Ray Angiography'],&#013;
+                   ['MG', 'Mammography'],&#013;
+                   ['CR', 'Computed Radiography'],&#013;
+                   ['AS', 'Angioscopy'],&#013;
+                   ['DX', 'Digital Radiography'],&#013;
+                   ['EC', 'Echocardiography']">
+                        <em>(Справка)</em>
+                    </span>
+                </th>
             </tr>
+
             </thead>
             <tbody>
 
-
             <tr>
-                <th> object.patient_fio }}</th>
-                <th> object.patient_birthdate }}</th>
-                <th> object.study_uid }}</th>
-                <th> object.study_date }}</th>
-                <th> object.study_modality }}</th>
+                <th> {{ object.patient_fio }}</th>
+                <th> {{ object.patient_birthdate }}</th>
+                <th> {{ object.study_uid }}</th>
+                <th> {{ object.study_date }}</th>
+                <th> {{ object.study_modality }}</th>
             </tr>
+
 
             </tbody>
         </table>
     </div>
 </div>
 
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>
-
-<!--const myModal = new HystModal({-->
-<!--    linkAttributeName: "data-hystmodal",-->
-<!--    // настройки (не обязательно), см. API-->
-<!--});-->
-
-
 <script type="text/javascript"
-        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        src="http://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 <script type="text/javascript"
         src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<script src="{% static 'js/hystmodal.min.js' %}"></script>
 </body>
 </html>

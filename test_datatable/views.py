@@ -1,9 +1,11 @@
 import datetime
 
 from django.db import transaction
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from django.views.generic.edit import FormMixin
 
 from .forms import StudiesForm
 from .models import Modalities, Studies
@@ -61,24 +63,39 @@ def init_db(request):
 
 class StudiesCreateView(CreateView):
     model = Studies
-    form_class = StudiesForm
 
 
-class StudiesListView(ListView):
+class FormListView(FormMixin, ListView):
+    """Подмешивание формы в ListView для возможности вывода
+     на странице с листом формы по добавлению записей в БД"""
+
+    def get(self, request, *args, **kwargs):
+        # From ProcessFormMixin
+        form_class = self.get_form_class()
+        self.form = self.get_form(form_class)
+
+        # From BaseListView
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+        if not allow_empty and len(self.object_list) == 0:
+            raise Http404(u"Empty list and '%(class_name)s.allow_empty' is False."
+                          % {'class_name': self.__class__.__name__})
+
+        context = self.get_context_data(object_list=self.object_list, form=self.form)
+        return self.render_to_response(context)
+
+
+class StudiesListView(FormListView):
     model = Studies
+    form_class = StudiesForm
+    template_name = 'test_datatable/studies_list.html'
+    success_url = reverse_lazy('test_datatable:studies_list')
 
-    @transaction.atomic
-    def get_queryset(self):
-        return Studies.objects.all()
+    def post(self, request, *args, **kwargs):
+        self.form = StudiesForm(request.POST)
+        if self.form.is_valid():
+            self.form.save()
+        return super().get(request, *args, **kwargs)
 
-    # def get_context_data(self, *args, **kwargs):
-    #     """Получает данные о Modlities для отображения в шаблоне"""
-    #     context = super().get_context_data(*args, **kwargs)
-    #     studies = self.get_queryset()
-    #     for studie in studies:
-    #         studies.study_modality =
-    #     context["object_list"] = studies
-    #
-    #     return context
 
 

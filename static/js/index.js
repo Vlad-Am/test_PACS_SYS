@@ -1,4 +1,14 @@
-import HystModal from './hystmodal';
-import 'element-closest-polyfill';
-import './hystmodal.css';
-global.HystModal = HystModal;
+$(function(){
+    $('#myTable').DataTable();
+    $('#add').on("click", function() {
+        $('.vmodal').show();
+
+        $('.modal-close').on("click", function() {
+            $('.vmodal').hide();
+            $('#myTable').show();
+        });
+
+        $('#myTable').hide();
+    });
+})
+

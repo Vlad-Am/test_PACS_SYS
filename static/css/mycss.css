@@ -1,0 +1,73 @@
+.vmodal{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+}
+
+.modal-window {
+  width: 600px;
+  border-radius: 5px;
+  background: #f8f8f8;
+  margin: auto;
+  transform: translateY(200px);
+}
+
+.modal-header {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 5px solid #625e5e;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.modal-body{
+  padding:10px;
+
+}
+
+.modal-body p {
+  margin: 0 0 10px;
+}
+
+.modal-footer{
+  padding:5px 10px;
+  border-bottom: 5px solid #625e5e;
+}
+span.support::before {
+   content: attr(data-title); /*помещаем подсказку в псевдоэлемент*/
+   display: none; /*скрываем подсказку*/
+}
+span.support:focus::before {
+   display: block;
+}
+
+.support {
+  display: inline-block;
+  position: relative; /*обязательное параметр*/
+  text-decoration: none;
+  cursor: pointer;
+  top: 50%;
+
+}
+
+.support em {
+  background: #bdb0a9;
+  border-radius: 20px;
+  border: 1px solid #999;
+  text-align: center;
+  color: #FFF;
+  font: normal bold 16px Arial;
+  padding: 0 4px;
+}
+
